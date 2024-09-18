@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "figo-favian-mentalhealthtracker.pbp.cs.ui.ac.id"]
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,7 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-df$r01a^4e=knio!tad$8)st_y$5mk@ygbm-r^afpom5ax_kzp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+PRODUCTION = os.getenv("PRODUCTION", False)
+DEBUG = not PRODUCTION
 
 # Application definition
 
