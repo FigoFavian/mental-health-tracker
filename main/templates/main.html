@@ -147,6 +147,7 @@
   async function getMoodEntries() {
     return fetch("{% url 'main:show_json' %}").then((res) => res.json());
   }
+
   async function refreshMoodEntries() {
     document.getElementById('mood_entry_cards').innerHTML = '';
     document.getElementById('mood_entry_cards').className = '';
@@ -240,28 +241,23 @@
   function hideModal() {
     const modal = document.getElementById('crudModal');
     const modalContent = document.getElementById('crudModalContent');
-
-    modalContent.classList.remove('opacity-100', 'scale-100');
     modalContent.classList.add('opacity-0', 'scale-95');
-
-    setTimeout(() => {
-      modal.classList.add('hidden');
-    }, 150);
+    setTimeout(() => modal.classList.add('hidden'), 150);
   }
 
   document.getElementById('cancelButton').addEventListener('click', hideModal);
   document.getElementById('closeModalBtn').addEventListener('click', hideModal);
 
   function addMoodEntry() {
-    fetch("{% url 'main:add_mood_entry_ajax' %}", {
-      method: 'POST',
-      body: new FormData(document.querySelector('#moodEntryForm')),
-    }).then((response) => refreshMoodEntries());
+      fetch("{% url 'main:add_mood_entry_ajax' %}", {
+        method: 'POST',
+        body: new FormData(document.querySelector('#moodEntryForm')),
+      }).then((response) => refreshMoodEntries());
 
-    document.getElementById('moodEntryForm').reset();
-    document.querySelector("[data-modal-toggle='crudModal']").click();
+      document.getElementById('moodEntryForm').reset();
+      document.querySelector("[data-modal-toggle='crudModal']").click();
 
-    return false;
+      return false;
   }
   document.getElementById('submitMoodEntry').onclick = addMoodEntry;
 </script>
